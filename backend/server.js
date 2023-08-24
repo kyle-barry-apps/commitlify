@@ -9,11 +9,12 @@ connectDB();
 
 const app = express();
 
-// Get json body
+// Get req.body in json format
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 
 app.use("/api/commitments", require("./routes/commitmentRoutes"));
+app.use("/api/users", require("./routes/userRoutes"));
 
 app.use(errorHandler);
 
