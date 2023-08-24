@@ -1,0 +1,29 @@
+.header {
+  display: flex;
+  justify-content: space-between;
+  padding: 1.5rem 3rem;
+  align-items: center;
+  background-color: var(--coral-500);
+  border-radius: 0px 0px 5px 5px;
+  margin-bottom: 2rem;
+}
+
+.header__list {
+  display: flex;
+  gap: 1rem;
+  text-transform: uppercase;
+  list-style: none;
+}
+
+.logo {
+  text-decoration: none;
+  font-size: 2rem;
+  font-weight: 700;
+  color: #ffffff;
+}
+
+.header__item {
+  text-decoration: none;
+  color: #ffffff;
+  letter-spacing: 1px;
+}

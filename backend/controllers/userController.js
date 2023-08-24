@@ -14,8 +14,7 @@ const loginUser = aysncHandler(async (req, res) => {
   if (user && (await bcrypt.compare(password, user.password))) {
     res.status(200).json({
       _id: user.id,
-      firstName: user.firstName,
-      lastName: user.lastName,
+      name: user.name,
       email: user.email,
       token: generateToken(user._id),
     });
@@ -29,8 +28,8 @@ const loginUser = aysncHandler(async (req, res) => {
 // @route POST /api/users
 // @access Public
 const registerUser = aysncHandler(async (req, res) => {
-  const { firstName, lastName, email, password } = req.body;
-  if (!firstName || !lastName || !email || !password) {
+  const { name, email, password } = req.body;
+  if (!name || !email || !password) {
     res.status(400);
     throw new Error("Complete all required fields");
   }
@@ -48,8 +47,7 @@ const registerUser = aysncHandler(async (req, res) => {
   const hashedPassword = await bcrypt.hash(password, salt);
 
   const newUser = await User.create({
-    firstName,
-    lastName,
+    name,
     email,
     password: hashedPassword,
   });
@@ -57,8 +55,7 @@ const registerUser = aysncHandler(async (req, res) => {
   if (newUser) {
     res.status(201).json({
       _id: newUser.id,
-      firstName: newUser.firstName,
-      lastName: newUser.lastName,
+      name: newUser.name,
       email: newUser.email,
       token: generateToken(newUser._id),
     });
@@ -72,11 +69,10 @@ const registerUser = aysncHandler(async (req, res) => {
 // @route GET /api/users/me
 // @access Private
 const getCurrentUser = aysncHandler(async (req, res) => {
-  const { _id, firstName, lastName, email } = await User.findById(req.user.id);
+  const { _id, name, email } = await User.findById(req.user.id);
   res.status(200).json({
     id: _id,
-    firstName,
-    lastName,
+    name,
     email,
   });
 });
