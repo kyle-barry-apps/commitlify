@@ -2,12 +2,13 @@ const aysncHandler = require("express-async-handler");
 
 // import mongoose models
 const Commitment = require("../models/commitmentModel");
+const User = require("../models/userModel");
 
 // @desc Get commitments
 // @route GET /api/commitments
 // @access Private
 const getCommitments = aysncHandler(async (req, res) => {
-  const commitments = await Commitment.find();
+  const commitments = await Commitment.find({ user: req.user.id });
 
   res.status(200).json(commitments);
 });
@@ -30,6 +31,7 @@ const setCommitment = aysncHandler(async (req, res) => {
     progressPercentage: 0,
     moneyCommitted: req.body.moneyCommitted,
     timeCommitted: req.body.timeCommitted,
+    user: req.user.id,
   });
 
   res.status(200).json(commitment);
@@ -46,6 +48,20 @@ const updateCommitment = aysncHandler(async (req, res) => {
     throw new Error("Commitment not found");
   }
 
+  const user = await User.findById(req.user.id);
+
+  // Check for user
+  if (!user) {
+    res.status(401);
+    throw new Error("User not found");
+  }
+
+  // Make user can only update their own commitments
+  if (commitment.user.toString() !== user.id) {
+    res.status(401);
+    throw new Error("User not authorized");
+  }
+
   const updatedCommitment = await Commitment.findByIdAndUpdate(
     req.params.id,
     req.body,
@@ -59,7 +75,28 @@ const updateCommitment = aysncHandler(async (req, res) => {
 // @route DELETE /api/commitments/:id
 // @access Private
 const deleteCommitment = aysncHandler(async (req, res) => {
-  const commitmentToDelete = await Commitment.deleteOne({ _id: req.params.id });
+  const commitment = await Commitment.findById(req.params.id);
+
+  if (!commitment) {
+    res.status(400);
+    throw new Error("Commitment not found");
+  }
+
+  const user = await User.findById(req.user.id);
+
+  // Check for user
+  if (!user) {
+    res.status(401);
+    throw new Error("User not found");
+  }
+
+  // Make user can only update their own commitments
+  if (commitment.user.toString() !== user.id) {
+    res.status(401);
+    throw new Error("User not authorized");
+  }
+
+  await commitment.deleteOne();
 
   res.status(200).json({ id: req.params.id });
 });
