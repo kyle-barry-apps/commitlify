@@ -1,9 +1,4 @@
-import {
-  BrowserRouter as Router,
-  Routes,
-  Route,
-  BrowserRouter,
-} from "react-router-dom";
+import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import Dashboard from "./pages/Dashboard";
@@ -14,7 +9,7 @@ import "./App.css";
 
 function App() {
   return (
-    <BrowserRouter>
+    <Router>
       <Header />
       <div className="container">
         <Routes>
@@ -24,7 +19,7 @@ function App() {
         </Routes>
       </div>
       <ToastContainer />
-    </BrowserRouter>
+    </Router>
   );
 }
 

@@ -27,3 +27,9 @@
   color: #ffffff;
   letter-spacing: 1px;
 }
+
+.btn-logout {
+  background-color: transparent;
+  box-shadow: none;
+  border: none;
+}
