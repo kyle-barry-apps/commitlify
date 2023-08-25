@@ -26,6 +26,11 @@
   text-decoration: none;
   color: #ffffff;
   letter-spacing: 1px;
+  transition: 0.15s;
+}
+
+.header__item:hover {
+  opacity: 0.8;
 }
 
 .btn-logout {

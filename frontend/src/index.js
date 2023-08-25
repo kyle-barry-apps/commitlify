@@ -4,14 +4,17 @@ import { Provider } from "react-redux";
 import { store } from "./app/store";
 import App from "./App";
 import "./index.css";
+import { ModalProvider } from "./contexts/modalContext";
 
 const container = document.getElementById("root");
 const root = createRoot(container);
 
 root.render(
   <React.StrictMode>
-    <Provider store={store}>
-      <App />
-    </Provider>
+    <ModalProvider>
+      <Provider store={store}>
+        <App />
+      </Provider>
+    </ModalProvider>
   </React.StrictMode>
 );

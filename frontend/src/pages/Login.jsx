@@ -8,18 +8,6 @@ import Spinner from "../components/Spinner";
 const Login = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  // const [formData, setFormData] = useState({
-  //   email: "",
-  //   password: "",
-  // });
-
-  // const onChange = (e) => {
-  //   setFormData((prevState) => ({
-  //     ...prevState,
-  //     [e.target.email]: e.target.email,
-  //     [e.target.password]: e.target.password,
-  //   }));
-  // };
 
   const dispatch = useDispatch();
   const navigate = useNavigate();

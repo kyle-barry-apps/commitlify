@@ -48,16 +48,14 @@ const updateCommitment = aysncHandler(async (req, res) => {
     throw new Error("Commitment not found");
   }
 
-  const user = await User.findById(req.user.id);
-
   // Check for user
-  if (!user) {
+  if (!req.user) {
     res.status(401);
     throw new Error("User not found");
   }
 
   // Make user can only update their own commitments
-  if (commitment.user.toString() !== user.id) {
+  if (commitment.user.toString() !== req.user.id) {
     res.status(401);
     throw new Error("User not authorized");
   }
@@ -82,16 +80,14 @@ const deleteCommitment = aysncHandler(async (req, res) => {
     throw new Error("Commitment not found");
   }
 
-  const user = await User.findById(req.user.id);
-
   // Check for user
-  if (!user) {
+  if (!req.user) {
     res.status(401);
     throw new Error("User not found");
   }
 
   // Make user can only update their own commitments
-  if (commitment.user.toString() !== user.id) {
+  if (commitment.user.toString() !== req.user.id) {
     res.status(401);
     throw new Error("User not authorized");
   }

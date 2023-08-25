@@ -18,6 +18,7 @@
 
 body {
   font-family: "Poppins", sans-serif;
+  height: 100%;
 }
 
 .container {
@@ -90,7 +91,8 @@ body {
 }
 
 .btn-register,
-.btn-login {
+.btn-login,
+.btn-create {
   width: 70%;
   background: linear-gradient(
     0.25turn,
@@ -120,4 +122,21 @@ body {
   border-color: #000 transparent #555 transparent;
   border-radius: 50%;
   animation: spin 1.2s linear infinite;
+}
+
+.btn-commitment {
+  background-color: var(--coral-500);
+}
+
+.add-container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.add-form {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  width: 70%;
 }

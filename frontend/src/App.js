@@ -5,11 +5,17 @@ import Dashboard from "./pages/Dashboard";
 import Login from "./pages/Login";
 import Register from "./pages/Register";
 import Header from "./components/Header/Header";
-import "./App.css";
+
+// import { ModalContext } from "./contexts/modalContext";
+// import { useContext } from "react";
+// import AddCommitment from "./modals/addCommitment";
 
 function App() {
+  // const { modal, setModal } = useContext(ModalContext);
+
   return (
     <Router>
+      {/* {modal === "addCommitment" && <AddCommitment />} */}
       <Header />
       <div className="container">
         <Routes>
