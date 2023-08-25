@@ -1,15 +1,19 @@
 // import "./modals.css";
 import { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
+import { createCommitment } from "../features/commitment/commitmentSlice";
 
 const AddCommitment = () => {
   const [name, setName] = useState("");
 
+  const dispatch = useDispatch();
+
   const handleSubmit = (e) => {
     e.preventDefault();
-  };
 
-  console.log(name);
+    dispatch(createCommitment({ name }));
+    setName("");
+  };
 
   return (
     <div className="form-container">
