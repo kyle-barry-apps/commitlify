@@ -1,0 +1,40 @@
+.dashboard-container {
+  min-height: 25rem;
+  display: grid;
+  position: relative;
+  border: 1px solid var(--coral-500);
+  padding: 2rem;
+}
+
+.empty-dashboard {
+  align-self: center;
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1rem;
+}
+
+.empty-dashboard h3 {
+  color: rgb(91, 91, 91);
+  font-weight: 400;
+}
+
+.add-icon {
+  position: absolute;
+  display: flex;
+  align-items: center;
+  top: 0;
+  right: 0;
+  padding: 1rem;
+  background-color: var(--coral-500);
+  border-radius: 50%;
+  box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
+  cursor: pointer;
+  transition: 0.15s;
+}
+
+.add-icon:hover {
+  opacity: 0.8;
+  transform: scale(1.01);
+}

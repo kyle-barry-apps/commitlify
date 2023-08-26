@@ -6,12 +6,15 @@ import AddCommitment from "../modals/addCommitment";
 import { getCommitments, reset } from "../features/commitment/commitmentSlice";
 import Spinner from "../components/Spinner";
 import CommitmentItem from "../components/CommitmentItem";
+import { AiOutlinePlus } from "react-icons/ai";
+
+import "./dashboard.css";
 
 const Dashboard = () => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
 
-  // const { modal, setModal } = useContext(ModalContext);
+  const { modal, setModal } = useContext(ModalContext);
 
   const { user } = useSelector((state) => state.user);
   const { commitments, isLoading, isError, message } = useSelector(
@@ -39,16 +42,28 @@ const Dashboard = () => {
   }
 
   return (
-    <>
-      <section className="dashboard-container">
-        <AddCommitment />
-
-        {commitments.length > 0 &&
-          commitments.map((c) => {
+    <section className="dashboard-container">
+      {commitments.length === 0 ? (
+        <div className="empty-dashboard">
+          <h3>Get started by adding a commitment</h3>
+          <button
+            className="btn btn-create"
+            onClick={() => setModal("addCommitment")}
+          >
+            Create Commitment
+          </button>
+        </div>
+      ) : (
+        <>
+          <div className="add-icon" onClick={() => setModal("addCommitment")}>
+            <AiOutlinePlus size={30} color="white" />
+          </div>
+          {commitments.map((c) => {
             return <CommitmentItem commitment={c} key={c._id} />;
           })}
-      </section>
-    </>
+        </>
+      )}
+    </section>
   );
 };
 

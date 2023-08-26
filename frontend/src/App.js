@@ -6,16 +6,18 @@ import Login from "./pages/Login";
 import Register from "./pages/Register";
 import Header from "./components/Header/Header";
 
-// import { ModalContext } from "./contexts/modalContext";
-// import { useContext } from "react";
-// import AddCommitment from "./modals/addCommitment";
+import { ModalContext } from "./contexts/modalContext";
+import { useContext } from "react";
+import AddCommitment from "./modals/addCommitment";
+import "./modals/modals.css";
 
 function App() {
-  // const { modal, setModal } = useContext(ModalContext);
+  const { modal, setModal } = useContext(ModalContext);
 
   return (
     <Router>
-      {/* {modal === "addCommitment" && <AddCommitment />} */}
+      {modal !== "" && <div className="modal-overlay"></div>}
+      {modal === "addCommitment" && <AddCommitment />}
       <Header />
       <div className="container">
         <Routes>
