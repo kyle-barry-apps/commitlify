@@ -45,6 +45,46 @@ export const createCommitment = createAsyncThunk(
   }
 );
 
+export const updateCommitment = createAsyncThunk(
+  "commitment/updateCommitment",
+  async (id, commitmentData, thunkAPI) => {
+    try {
+      const token = thunkAPI.getState().user.user.token;
+      return await commitmentService.updateCommitment(
+        id,
+        commitmentData,
+        token
+      );
+    } catch (error) {
+      const message =
+        (error.response &&
+          error.response.data &&
+          error.response.data.message) ||
+        error.message ||
+        error.toString();
+      return thunkAPI.rejectWithValue(message);
+    }
+  }
+);
+
+export const deleteCommitment = createAsyncThunk(
+  "commitment/deleteCommitment",
+  async (id, thunkAPI) => {
+    try {
+      const token = thunkAPI.getState().user.user.token;
+      return await commitmentService.deleteCommitment(id, token);
+    } catch (error) {
+      const message =
+        (error.response &&
+          error.response.data &&
+          error.response.data.message) ||
+        error.message ||
+        error.toString();
+      return thunkAPI.rejectWithValue(message);
+    }
+  }
+);
+
 export const commitmentSlice = createSlice({
   name: "commitment",
   initialState,
@@ -80,6 +120,33 @@ export const commitmentSlice = createSlice({
         state.commitments = action.payload;
       })
       .addCase(getCommitments.rejected, (state, action) => {
+        state.isLoading = false;
+        state.isError = true;
+        state.message = action.payload;
+      })
+      .addCase(updateCommitment.pending, (state) => {
+        state.isLoading = true;
+      })
+      .addCase(updateCommitment.fulfilled, (state, action) => {
+        state.isLoading = false;
+        state.isSuccess = true;
+      })
+      .addCase(updateCommitment.rejected, (state, action) => {
+        state.isLoading = false;
+        state.isError = true;
+        state.message = action.payload;
+      })
+      .addCase(deleteCommitment.pending, (state) => {
+        state.isLoading = true;
+      })
+      .addCase(deleteCommitment.fulfilled, (state, action) => {
+        state.isLoading = false;
+        state.isSuccess = true;
+        state.commitments = state.commitments.filter(
+          (c) => c._id !== action.payload.id
+        );
+      })
+      .addCase(deleteCommitment.rejected, (state, action) => {
         state.isLoading = false;
         state.isError = true;
         state.message = action.payload;

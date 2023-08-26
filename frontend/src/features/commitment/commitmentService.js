@@ -11,8 +11,6 @@ const fetchCommitments = async (token) => {
 
   const response = await axios.get(API_URL, config);
 
-  console.log(response.data);
-
   return response.data;
 };
 
@@ -28,9 +26,35 @@ const createCommitment = async (data, token) => {
   return response.data;
 };
 
+const updateCommitment = async (id, data, token) => {
+  const config = {
+    headers: {
+      Authorization: `Bearer ${token}`,
+    },
+  };
+
+  const response = await axios.put(API_URL + id, data, config);
+
+  return response.data;
+};
+
+const deleteCommitment = async (id, token) => {
+  const config = {
+    headers: {
+      Authorization: `Bearer ${token}`,
+    },
+  };
+
+  const response = await axios.delete(API_URL + id, config);
+
+  return response.data;
+};
+
 const commitmentService = {
   fetchCommitments,
   createCommitment,
+  updateCommitment,
+  deleteCommitment,
 };
 
 export default commitmentService;
