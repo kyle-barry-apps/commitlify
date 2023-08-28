@@ -43,7 +43,7 @@ const Dashboard = () => {
 
   return (
     <>
-      {user && <h1 className="dashboard-welcome">{user.name}'s Dashboard</h1>}
+      {user && <h1 className="dashboard-welcome">My Dashboard</h1>}
       <section className="dashboard-container">
         {commitments.length === 0 ? (
           <div className="empty-dashboard">

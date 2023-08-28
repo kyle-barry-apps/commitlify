@@ -11,13 +11,8 @@
   cursor: pointer;
   box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
   transition: 0.15s;
-  /* background-color: rgb(245, 245, 245); */
-  /* background: linear-gradient(
-    0.45turn,
-    var(--coral-100),
-    var(--coral-300),
-    var(--coral-500)
-  ); */
+  background-color: rgb(245, 245, 245);
+  z-index: 0;
 }
 
 .commitment:hover {
