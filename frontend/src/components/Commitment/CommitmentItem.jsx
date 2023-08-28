@@ -6,9 +6,8 @@ import "react-circular-progressbar/dist/styles.css";
 import "./commitmentItem.css";
 
 const CommitmentItem = ({ commitment }) => {
-  const { modal, setModal } = useContext(ModalContext);
-  const { activeCommitment, setActiveCommitment } =
-    useContext(CommitmentContext);
+  const { setModal } = useContext(ModalContext);
+  const { setActiveCommitment } = useContext(CommitmentContext);
 
   const percentage = 66;
 
@@ -21,6 +20,7 @@ const CommitmentItem = ({ commitment }) => {
       }}
     >
       <h1 className="commitment-title">{commitment.name}</h1>
+
       <div className="progress-container">
         <CircularProgressbar
           value={percentage}
@@ -31,6 +31,7 @@ const CommitmentItem = ({ commitment }) => {
             textColor: "rgb(0,0,0)",
             textSize: "20px",
             trailColor: "#d6d6d6",
+            strokeLinecap: "butt",
           })}
         />
       </div>

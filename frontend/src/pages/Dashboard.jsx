@@ -2,7 +2,6 @@ import { useContext, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
 import { ModalContext } from "../contexts/modalContext";
-import AddCommitment from "../modals/addCommitment";
 import { getCommitments, reset } from "../features/commitment/commitmentSlice";
 import Spinner from "../components/Spinner";
 import CommitmentItem from "../components/Commitment/CommitmentItem";
@@ -14,7 +13,7 @@ const Dashboard = () => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
 
-  const { modal, setModal } = useContext(ModalContext);
+  const { setModal } = useContext(ModalContext);
 
   const { user } = useSelector((state) => state.user);
   const { commitments, isLoading, isError, message } = useSelector(

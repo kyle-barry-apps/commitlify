@@ -1,0 +1,30 @@
+.about-container {
+  display: flex;
+  gap: 5rem;
+  padding: 2rem 4rem;
+}
+
+.about-content {
+  flex: 3;
+}
+
+.about-title {
+  margin-bottom: 1rem;
+  font-size: 1.5rem;
+  text-align: left;
+  letter-spacing: 1px;
+  font-weight: 500;
+}
+
+.about-content p {
+  line-height: 1.8;
+  text-align: left;
+  font-size: 0.9rem;
+}
+
+.about-img {
+  flex: 2;
+  background-image: url("../../../public/assets/undraw_mindfulness_8gqa.svg");
+  background-position: center;
+  background-size: cover;
+}

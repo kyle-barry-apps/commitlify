@@ -11,6 +11,7 @@ import { useContext } from "react";
 import AddCommitment from "./modals/addCommitment";
 import "./modals/modals.css";
 import ViewCommitment from "./modals/ViewCommitment";
+import About from "./pages/About/About";
 
 function App() {
   const { modal } = useContext(ModalContext);
@@ -25,6 +26,7 @@ function App() {
         <div className="container">
           <Routes>
             <Route path="/" element={<Dashboard />} />
+            <Route path="/about" element={<About />} />
             <Route path="/login" element={<Login />} />
             <Route path="/register" element={<Register />} />
           </Routes>

@@ -22,11 +22,19 @@ const Header = () => {
       </Link>
       <ul className="header__list">
         {user ? (
-          <button className="btn btn-logout" onClick={handleLogout} to="/login">
-            Logout
-          </button>
+          <>
+            <Link to="/about" className="header__item">
+              About
+            </Link>
+            <a className="header__item" onClick={handleLogout} to="/login">
+              Logout
+            </a>
+          </>
         ) : (
           <>
+            <Link to="/about" className="header__item">
+              About
+            </Link>
             <Link className="header__item" to="/login">
               Login
             </Link>
