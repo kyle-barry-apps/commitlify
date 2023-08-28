@@ -4,9 +4,13 @@ import { useDispatch } from "react-redux";
 import { createCommitment } from "../features/commitment/commitmentSlice";
 import { ModalContext } from "../contexts/modalContext";
 import "./modals.css";
+import DatePicker from "react-datepicker";
+import "react-datepicker/dist/react-datepicker.css";
 
 const AddCommitment = () => {
   const [name, setName] = useState("");
+  const [description, setDescription] = useState("");
+  const [endDate, setEndDate] = useState(new Date());
 
   const { modal, setModal } = useContext(ModalContext);
 
@@ -37,8 +41,9 @@ const AddCommitment = () => {
 
   return (
     <div className="modal-container" ref={modal_ref}>
-      <form onSubmit={handleSubmit} className="form">
-        <div className="form-group">
+      <form onSubmit={handleSubmit} className="addCommitment-form">
+        <h1 className="modal-title">Add Commitment</h1>
+        <div className="modal-group">
           <label htmlFor="name">Title</label>
           <input
             className="form-control"
@@ -46,9 +51,30 @@ const AddCommitment = () => {
             name="name"
             id="name"
             value={name}
+            placeholder="e.g. Write a novel"
             onChange={(e) => setName(e.target.value)}
           />
         </div>
+        <div className="modal-group">
+          <label htmlFor="description">Description</label>
+          <textarea
+            placeholder="e.g. I want to write a novel about committing to writing a novel"
+            className="form-control"
+            name="description"
+            id="description"
+            value={description}
+            onChange={(e) => setDescription(e.target.value)}
+          />
+        </div>
+        <div className="modal-group">
+          <label htmlFor="endDate">End Date</label>
+          <DatePicker
+            className="form-control"
+            selected={endDate}
+            onChange={(date) => setEndDate(date)}
+          />
+        </div>
+
         <button className="btn btn-create" type="submit">
           Create new commitment
         </button>
