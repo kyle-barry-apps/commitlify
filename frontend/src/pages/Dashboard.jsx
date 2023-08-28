@@ -5,7 +5,7 @@ import { ModalContext } from "../contexts/modalContext";
 import AddCommitment from "../modals/addCommitment";
 import { getCommitments, reset } from "../features/commitment/commitmentSlice";
 import Spinner from "../components/Spinner";
-import CommitmentItem from "../components/CommitmentItem";
+import CommitmentItem from "../components/Commitment/CommitmentItem";
 import { AiOutlinePlus } from "react-icons/ai";
 
 import "./dashboard.css";
@@ -42,28 +42,31 @@ const Dashboard = () => {
   }
 
   return (
-    <section className="dashboard-container">
-      {commitments.length === 0 ? (
-        <div className="empty-dashboard">
-          <h3>Get started by adding a commitment</h3>
-          <button
-            className="btn btn-create"
-            onClick={() => setModal("addCommitment")}
-          >
-            Create Commitment
-          </button>
-        </div>
-      ) : (
-        <>
-          <div className="add-icon" onClick={() => setModal("addCommitment")}>
-            <AiOutlinePlus size={30} color="white" />
+    <>
+      {user && <h1 className="dashboard-welcome">{user.name}'s Dashboard</h1>}
+      <section className="dashboard-container">
+        {commitments.length === 0 ? (
+          <div className="empty-dashboard">
+            <h3>Get started by adding a commitment</h3>
+            <button
+              className="btn btn-create"
+              onClick={() => setModal("addCommitment")}
+            >
+              Create Commitment
+            </button>
           </div>
-          {commitments.map((c) => {
-            return <CommitmentItem commitment={c} key={c._id} />;
-          })}
-        </>
-      )}
-    </section>
+        ) : (
+          <>
+            <div className="add-icon" onClick={() => setModal("addCommitment")}>
+              <AiOutlinePlus size={30} color="white" />
+            </div>
+            {commitments.map((c) => {
+              return <CommitmentItem commitment={c} key={c._id} />;
+            })}
+          </>
+        )}
+      </section>
+    </>
   );
 };
 

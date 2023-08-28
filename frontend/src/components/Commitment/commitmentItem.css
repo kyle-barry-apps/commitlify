@@ -1,0 +1,37 @@
+.commitment {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  width: 17rem;
+  height: 22rem;
+  border-radius: 10px;
+  padding: 2rem;
+  align-items: center;
+  gap: 1.5rem;
+  cursor: pointer;
+  box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
+  transition: 0.15s;
+  /* background-color: rgb(245, 245, 245); */
+  /* background: linear-gradient(
+    0.45turn,
+    var(--coral-100),
+    var(--coral-300),
+    var(--coral-500)
+  ); */
+}
+
+.commitment:hover {
+  transform: scale(1.01);
+  transform: translateY(-5px);
+}
+
+.commitment-title {
+  align-self: flex-start;
+  font-size: 1.3rem;
+  font-weight: 500;
+}
+
+.progress-container {
+  width: 10rem;
+  height: 10rem;
+}

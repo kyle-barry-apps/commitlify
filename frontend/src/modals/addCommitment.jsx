@@ -3,14 +3,13 @@ import { useState, useRef, useEffect, useContext } from "react";
 import { useDispatch } from "react-redux";
 import { createCommitment } from "../features/commitment/commitmentSlice";
 import { ModalContext } from "../contexts/modalContext";
+
 import "./modals.css";
-import DatePicker from "react-datepicker";
-import "react-datepicker/dist/react-datepicker.css";
 
 const AddCommitment = () => {
   const [name, setName] = useState("");
   const [description, setDescription] = useState("");
-  const [endDate, setEndDate] = useState(new Date());
+  const [pledgeAmount, setPledgeAmount] = useState(20);
 
   const { modal, setModal } = useContext(ModalContext);
 
@@ -20,7 +19,9 @@ const AddCommitment = () => {
   const handleSubmit = (e) => {
     e.preventDefault();
 
-    dispatch(createCommitment({ name }));
+    dispatch(
+      createCommitment({ name, description, moneyCommitted: pledgeAmount })
+    );
     setName("");
     setModal("");
   };
@@ -51,14 +52,14 @@ const AddCommitment = () => {
             name="name"
             id="name"
             value={name}
-            placeholder="e.g. Write a novel"
+            placeholder="e.g. Meditate"
             onChange={(e) => setName(e.target.value)}
           />
         </div>
         <div className="modal-group">
           <label htmlFor="description">Description</label>
           <textarea
-            placeholder="e.g. I want to write a novel about committing to writing a novel"
+            placeholder="e.g. I want to meditate for 10 minutes every day"
             className="form-control"
             name="description"
             id="description"
@@ -67,16 +68,18 @@ const AddCommitment = () => {
           />
         </div>
         <div className="modal-group">
-          <label htmlFor="endDate">End Date</label>
-          <DatePicker
-            className="form-control"
-            selected={endDate}
-            onChange={(date) => setEndDate(date)}
+          <label htmlFor="pledge-amount">Pledge Amount (USD $)</label>
+          <input
+            type="number"
+            className="form-control pledge-amount"
+            defaultValue={20}
+            onChange={(e) => setPledgeAmount(e.target.value)}
+            min={1}
+            max={10000}
           />
         </div>
-
         <button className="btn btn-create" type="submit">
-          Create new commitment
+          Create commitment
         </button>
       </form>
     </div>

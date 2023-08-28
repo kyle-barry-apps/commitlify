@@ -13,7 +13,6 @@ const commitmentSchema = mongoose.Schema(
     },
     description: String,
     commitmentType: String,
-    endDate: Date,
     success: Boolean,
     progressPercentage: Number,
     moneyCommitted: Number,

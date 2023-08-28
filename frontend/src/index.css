@@ -68,6 +68,10 @@ body {
   width: 70%;
 }
 
+.form-control.pledge-amount {
+  max-width: 5rem;
+}
+
 .form-control:focus {
   outline: 1px solid var(--coral-500);
 }
