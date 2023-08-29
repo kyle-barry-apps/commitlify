@@ -95,13 +95,16 @@
 }
 
 .ellipsis-container {
-  height: 1.5rem;
   cursor: pointer;
+  height: 2rem;
+  width: 2rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
 .ellipsis-image {
-  height: 100%;
-  object-fit: cover;
+  height: 1.5rem;
 }
 
 .view-commitment-description {

@@ -43,7 +43,13 @@ const Dashboard = () => {
   return (
     <>
       {user && <h1 className="dashboard-welcome">My Dashboard</h1>}
-      <section className="dashboard-container">
+      <section
+        className={
+          commitments.length > 0
+            ? "dashboard-container active"
+            : "dashboard-container"
+        }
+      >
         {commitments.length === 0 ? (
           <div className="empty-dashboard">
             <h3>Get started by adding a commitment</h3>

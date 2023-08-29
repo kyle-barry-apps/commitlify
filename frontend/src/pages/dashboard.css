@@ -1,10 +1,13 @@
 .dashboard-container {
   min-height: 25rem;
   display: grid;
-  grid-template-columns: repeat(4, 1fr);
   gap: 3rem;
   position: relative;
   padding: 1rem 4rem;
+}
+
+.dashboard-container.active {
+  grid-template-columns: repeat(4, 1fr);
 }
 
 .dashboard-welcome {
@@ -17,6 +20,7 @@
 
 .empty-dashboard {
   align-self: center;
+  justify-self: center;
   margin: 0 auto;
   display: flex;
   flex-direction: column;
