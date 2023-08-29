@@ -53,3 +53,31 @@
   height: 5rem;
   font-family: "Poppins", sans-serif;
 }
+
+.commitment-type-container {
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
+  gap: 1rem;
+}
+
+.commitment-type {
+  padding: 0.5rem 1rem;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: 0.15s;
+  border: 1px solid var(--coral-500);
+  user-select: none;
+  box-shadow: rgba(0, 0, 0, 0.35) 0px 1px 1px;
+}
+
+.commitment-type.active {
+  background-color: var(--coral-500);
+  color: white;
+}
+
+.commitment-type:hover {
+  opacity: 0.8;
+  background-color: var(--coral-500);
+  color: white;
+}

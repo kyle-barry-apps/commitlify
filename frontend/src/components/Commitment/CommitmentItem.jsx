@@ -35,8 +35,22 @@ const CommitmentItem = ({ commitment }) => {
           })}
         />
       </div>
-      <div className="commitment-pledge">
-        Amount pledged: ${commitment.moneyCommitted}
+      <div className="pledges-container">
+        <div className="commitment-pledge">
+          Amount pledged: ${commitment.moneyCommitted}
+        </div>
+        {commitment.commitmentType !== "one-time" && (
+          <div className="time-pledge">
+            Time pledged:{" "}
+            {commitment.commitmentType === "daily"
+              ? `${commitment.timeCommitted} minutes per day`
+              : commitment.commitmentType === "weekly"
+              ? `${commitment.timeCommitted} minutes per week`
+              : commitment.commitmentType === "monthly"
+              ? `${commitment.timeCommitted} minutes per month`
+              : null}
+          </div>
+        )}
       </div>
     </div>
   );

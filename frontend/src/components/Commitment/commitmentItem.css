@@ -3,7 +3,6 @@
   flex-direction: column;
   justify-content: space-between;
   width: 17rem;
-  height: 22rem;
   border-radius: 10px;
   padding: 2rem;
   align-items: center;
@@ -40,4 +39,11 @@
 .delete-icon {
   padding: 0.5rem;
   cursor: pointer;
+}
+
+.pledges-container {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  text-align: left;
 }
