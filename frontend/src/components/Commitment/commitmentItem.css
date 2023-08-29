@@ -30,17 +30,6 @@
   height: 10rem;
 }
 
-.title-delete-container {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-}
-
-.delete-icon {
-  padding: 0.5rem;
-  cursor: pointer;
-}
-
 .pledges-container {
   display: flex;
   flex-direction: column;

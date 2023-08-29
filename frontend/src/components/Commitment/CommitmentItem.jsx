@@ -37,11 +37,11 @@ const CommitmentItem = ({ commitment }) => {
       </div>
       <div className="pledges-container">
         <div className="commitment-pledge">
-          Amount pledged: ${commitment.moneyCommitted}
+          Amount: ${commitment.moneyCommitted}
         </div>
         {commitment.commitmentType !== "one-time" && (
           <div className="time-pledge">
-            Time pledged:{" "}
+            Time:{" "}
             {commitment.commitmentType === "daily"
               ? `${commitment.timeCommitted} minutes per day`
               : commitment.commitmentType === "weekly"

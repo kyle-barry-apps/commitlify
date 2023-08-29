@@ -9,6 +9,8 @@ import { CommitmentProvider } from "./contexts/commitmentContext";
 import { ModalContext } from "./contexts/modalContext";
 import { useContext } from "react";
 import AddCommitment from "./modals/addCommitment";
+import EditCommitment from "./modals/editCommitment";
+import DeleteCommitment from "./modals/deleteCommitment";
 import "./modals/modals.css";
 import ViewCommitment from "./modals/ViewCommitment";
 import About from "./pages/About/About";
@@ -22,6 +24,8 @@ function App() {
         {modal !== "" && <div className="modal-overlay"></div>}
         {modal === "addCommitment" && <AddCommitment />}
         {modal === "viewCommitment" && <ViewCommitment />}
+        {modal === "deleteCommitment" && <DeleteCommitment />}
+        {modal === "editCommitment" && <EditCommitment />}
         <Header />
         <div className="container">
           <Routes>
