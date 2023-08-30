@@ -32,6 +32,13 @@ const AddCommitment = () => {
   const handleSubmit = (e) => {
     e.preventDefault();
 
+    const time =
+      commitmentType === "daily" || commitmentType === "one-time"
+        ? null
+        : timeCommitted;
+
+    const days = commitmentType === "daily" ? daysOfWeek : null;
+
     dispatch(
       createCommitment({
         name,
@@ -39,8 +46,8 @@ const AddCommitment = () => {
         moneyCommitted: pledgeAmount,
         commitmentType: {
           timeframe: commitmentType,
-          numberOfDays: timeCommitted,
-          daysOfWeek: daysOfWeek,
+          numberOfDays: time,
+          daysOfWeek: days,
         },
       })
     );
@@ -120,7 +127,7 @@ const AddCommitment = () => {
             }
             onClick={() => setCommitmentType("one-time")}
           >
-            One-Time
+            One Time
           </div>
           <div
             className={
@@ -232,7 +239,7 @@ const AddCommitment = () => {
           ) : commitmentType === "monthly" ? (
             <label htmlFor="time-pledge">Days per month</label>
           ) : null}
-          {commitmentType !== "one-time" && commitmentType !== "daily" && (
+          {commitmentType === "weekly" && (
             <input
               type="number"
               name="time-pledge"
@@ -241,6 +248,17 @@ const AddCommitment = () => {
               onChange={(e) => setTimeCommitted(e.target.value)}
               min={1}
               max={7}
+            />
+          )}
+          {commitmentType === "monthly" && (
+            <input
+              type="number"
+              name="time-pledge"
+              className="form-control pledge-amount"
+              defaultValue={3}
+              onChange={(e) => setTimeCommitted(e.target.value)}
+              min={1}
+              max={31}
             />
           )}
         </div>

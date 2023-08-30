@@ -11,6 +11,22 @@ const CommitmentItem = ({ commitment }) => {
 
   const percentage = 66;
 
+  const commitmentStatement = () => {
+    let statement = "";
+
+    if (commitment.commitmentType.timeframe === "one-time") {
+      statement = "One time commitment";
+    } else if (commitment.commitmentType.timeframe === "weekly") {
+      statement = `${commitment.commitmentType.numberOfDays} days per week`;
+    } else if (commitment.commitmentType.timeframe === "monthly") {
+      statement = `${commitment.commitmentType.numberOfDays} days per month`;
+    } else {
+      statement = `Daily commitment`;
+    }
+
+    return statement;
+  };
+
   return (
     <div
       className="commitment"
@@ -20,6 +36,7 @@ const CommitmentItem = ({ commitment }) => {
       }}
     >
       <h1 className="commitment-title">{commitment.name}</h1>
+      <h3 className="commitment-statement">{commitmentStatement()}</h3>
 
       <div className="progress-container">
         <CircularProgressbar
