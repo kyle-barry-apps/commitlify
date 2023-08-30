@@ -18,7 +18,7 @@ const Header = () => {
   return (
     <header className="header">
       <Link to="/" className="logo">
-        pledge
+        pledg
       </Link>
       <ul className="header__list">
         {user ? (

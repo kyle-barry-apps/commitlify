@@ -11,12 +11,23 @@ const AddCommitment = () => {
   const [description, setDescription] = useState("");
   const [pledgeAmount, setPledgeAmount] = useState(20);
   const [commitmentType, setCommitmentType] = useState("one-time");
-  const [timeCommitted, setTimeCommitted] = useState(0);
+  const [timeCommitted, setTimeCommitted] = useState(3);
+  const [daysOfWeek, setDaysOfWeek] = useState([
+    "Sunday",
+    "Monday",
+    "Tuesday",
+    "Wednesday",
+    "Thursday",
+    "Friday",
+    "Saturday",
+  ]);
 
   const { modal, setModal } = useContext(ModalContext);
 
   const dispatch = useDispatch();
   const modal_ref = useRef();
+
+  console.log(timeCommitted);
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -26,12 +37,24 @@ const AddCommitment = () => {
         name,
         description,
         moneyCommitted: pledgeAmount,
-        commitmentType,
-        timeCommitted,
+        commitmentType: {
+          timeframe: commitmentType,
+          numberOfDays: timeCommitted,
+          daysOfWeek: daysOfWeek,
+        },
       })
     );
     setName("");
     setModal("");
+  };
+
+  const handleDaySelect = (day) => {
+    const index = daysOfWeek.indexOf(day);
+    if (index > -1) {
+      setDaysOfWeek(daysOfWeek.filter((d) => d !== day));
+    } else {
+      setDaysOfWeek([...daysOfWeek, day]);
+    }
   };
 
   useEffect(() => {
@@ -132,21 +155,92 @@ const AddCommitment = () => {
         </div>
         <div className="modal-group">
           {commitmentType == "daily" ? (
-            <label htmlFor="time-pledge">Minutes per day</label>
+            <div className="days-container">
+              <div
+                className={
+                  daysOfWeek.includes("Sunday")
+                    ? "commitment-type day active"
+                    : "commitment-type day"
+                }
+                onClick={() => handleDaySelect("Sunday")}
+              >
+                Sunday
+              </div>
+              <div
+                className={
+                  daysOfWeek.includes("Monday")
+                    ? "commitment-type day active"
+                    : "commitment-type day"
+                }
+                onClick={() => handleDaySelect("Monday")}
+              >
+                Monday
+              </div>
+              <div
+                className={
+                  daysOfWeek.includes("Tuesday")
+                    ? "commitment-type day active"
+                    : "commitment-type day"
+                }
+                onClick={() => handleDaySelect("Tuesday")}
+              >
+                Tuesday
+              </div>
+              <div
+                className={
+                  daysOfWeek.includes("Wednesday")
+                    ? "commitment-type day active"
+                    : "commitment-type day"
+                }
+                onClick={() => handleDaySelect("Wednesday")}
+              >
+                Wednesday
+              </div>
+              <div
+                className={
+                  daysOfWeek.includes("Thursday")
+                    ? "commitment-type day active"
+                    : "commitment-type day"
+                }
+                onClick={() => handleDaySelect("Thursday")}
+              >
+                Thursday
+              </div>
+              <div
+                className={
+                  daysOfWeek.includes("Friday")
+                    ? "commitment-type day active"
+                    : "commitment-type day"
+                }
+                onClick={() => handleDaySelect("Friday")}
+              >
+                Friday
+              </div>
+              <div
+                className={
+                  daysOfWeek.includes("Saturday")
+                    ? "commitment-type day active"
+                    : "commitment-type day"
+                }
+                onClick={() => handleDaySelect("Saturday")}
+              >
+                Saturday
+              </div>
+            </div>
           ) : commitmentType === "weekly" ? (
-            <label htmlFor="time-pledge">Minutes per week</label>
+            <label htmlFor="time-pledge">Days per week</label>
           ) : commitmentType === "monthly" ? (
-            <label htmlFor="time-pledge">Minutes per month</label>
+            <label htmlFor="time-pledge">Days per month</label>
           ) : null}
-          {commitmentType !== "one-time" && (
+          {commitmentType !== "one-time" && commitmentType !== "daily" && (
             <input
               type="number"
               name="time-pledge"
               className="form-control pledge-amount"
-              defaultValue={30}
+              defaultValue={3}
               onChange={(e) => setTimeCommitted(e.target.value)}
               min={1}
-              max={10000}
+              max={7}
             />
           )}
         </div>

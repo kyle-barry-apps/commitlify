@@ -56,9 +56,8 @@ const ViewCommitment = () => {
       <p className="view-commitment-description">
         {activeCommitment.description}
       </p>
-      <span>Commitment Type: {activeCommitment.commitmentType}</span>
+      <span>Commitment Type: {activeCommitment.commitmentType.timeframe}</span>
       <span>Pledge Amount: ${activeCommitment.moneyCommitted}</span>
-      <span>Time Pledged: {activeCommitment.timeCommitted} minutes</span>
     </div>
   );
 };
