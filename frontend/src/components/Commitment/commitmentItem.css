@@ -6,7 +6,6 @@
   border-radius: 10px;
   padding: 2rem;
   align-items: center;
-  gap: 1.5rem;
   cursor: pointer;
   box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
   transition: 0.15s;
@@ -22,7 +21,26 @@
 .commitment-title {
   align-self: flex-start;
   font-size: 1.3rem;
+  font-weight: 600;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+}
+
+.commitment-statement {
   font-weight: 500;
+  font-size: 1rem;
+  align-self: flex-start;
+}
+
+.daily-completion {
+  border: 1px solid var(--coral-300);
+  padding: 1rem;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.daily-completion:hover {
+  background-color: var(--coral-100);
 }
 
 .progress-container {

@@ -21,6 +21,7 @@ const commitmentSchema = mongoose.Schema(
     progressPercentage: Number,
     moneyCommitted: Number,
     timeCommitted: Number,
+    completionDates: [String],
   },
   {
     timestamps: true,

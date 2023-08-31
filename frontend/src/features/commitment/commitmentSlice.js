@@ -47,7 +47,7 @@ export const createCommitment = createAsyncThunk(
 
 export const updateCommitment = createAsyncThunk(
   "commitment/updateCommitment",
-  async (id, commitmentData, thunkAPI) => {
+  async ({ id, commitmentData }, thunkAPI) => {
     try {
       const token = thunkAPI.getState().user.user.token;
       return await commitmentService.updateCommitment(
@@ -128,8 +128,12 @@ export const commitmentSlice = createSlice({
         state.isLoading = true;
       })
       .addCase(updateCommitment.fulfilled, (state, action) => {
+        console.log(action.payload);
         state.isLoading = false;
         state.isSuccess = true;
+        state.commitments = state.commitments.map((c) =>
+          c._id !== action.payload._id ? c : action.payload
+        );
       })
       .addCase(updateCommitment.rejected, (state, action) => {
         state.isLoading = false;

@@ -1,13 +1,16 @@
 import { useContext } from "react";
+import { useDispatch } from "react-redux";
 import { CircularProgressbar, buildStyles } from "react-circular-progressbar";
 import { ModalContext } from "../../contexts/modalContext";
 import { CommitmentContext } from "../../contexts/commitmentContext";
+import { updateCommitment } from "../../features/commitment/commitmentSlice";
 import "react-circular-progressbar/dist/styles.css";
 import "./commitmentItem.css";
 
 const CommitmentItem = ({ commitment }) => {
   const { setModal } = useContext(ModalContext);
   const { setActiveCommitment } = useContext(CommitmentContext);
+  const dispatch = useDispatch();
 
   const percentage = 66;
 
@@ -27,6 +30,32 @@ const CommitmentItem = ({ commitment }) => {
     return statement;
   };
 
+  const toggleCompletion = () => {
+    const today = new Date().toDateString();
+    let updatedCommitment = { ...commitment };
+
+    if (updatedCommitment.completionDates.includes(today)) {
+      updatedCommitment = {
+        ...updatedCommitment,
+        completionDates: updatedCommitment.completionDates.filter(
+          (c) => c !== today
+        ),
+      };
+    } else {
+      updatedCommitment = {
+        ...updatedCommitment,
+        completionDates: [...updatedCommitment.completionDates, today],
+      };
+    }
+
+    dispatch(
+      updateCommitment({
+        id: updatedCommitment._id,
+        commitmentData: updatedCommitment,
+      })
+    );
+  };
+
   return (
     <div
       className="commitment"
@@ -37,6 +66,7 @@ const CommitmentItem = ({ commitment }) => {
     >
       <h1 className="commitment-title">{commitment.name}</h1>
       <h3 className="commitment-statement">{commitmentStatement()}</h3>
+      <div className="daily-completion" onClick={toggleCompletion}></div>
 
       <div className="progress-container">
         <CircularProgressbar

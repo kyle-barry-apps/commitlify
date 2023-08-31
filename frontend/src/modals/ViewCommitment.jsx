@@ -53,8 +53,9 @@ const ViewCommitment = () => {
           </div>
         )}
       </div>
+
+      <h4>Description</h4>
       <p className="view-commitment-description">
-        <h4>Description</h4>
         {activeCommitment.description}
       </p>
       <h4>Commitment Type</h4>
