@@ -1,4 +1,4 @@
-import { useContext, useEffect } from "react";
+import { useContext, useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
 import { ModalContext } from "../contexts/modalContext";
@@ -13,12 +13,19 @@ const Dashboard = () => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
 
+  const [menu, setMenu] = useState("current");
+
   const { setModal } = useContext(ModalContext);
 
   const { user } = useSelector((state) => state.user);
   const { commitments, isLoading, isError, message } = useSelector(
     (state) => state.commitments
   );
+
+  const completedCommitments = commitments.filter(
+    (c) => c.isCompleted === true
+  );
+  const currentCommitments = commitments.filter((c) => c.isCompleted !== true);
 
   useEffect(() => {
     if (isError) {
@@ -43,6 +50,30 @@ const Dashboard = () => {
   return (
     <>
       {user && <h1 className="dashboard-welcome">My Dashboard</h1>}
+      {commitments.length > 0 && (
+        <div className="commitment-menu">
+          <div
+            onClick={() => setMenu("current")}
+            className={
+              menu === "current"
+                ? "current-commitments active"
+                : "current-commitments"
+            }
+          >
+            Current Commitments
+          </div>
+          <div
+            onClick={() => setMenu("completed")}
+            className={
+              menu === "completed"
+                ? "completed-commitments active"
+                : "completed-commitments"
+            }
+          >
+            Completed Commitments
+          </div>
+        </div>
+      )}
       <section
         className={
           commitments.length > 0
@@ -65,9 +96,13 @@ const Dashboard = () => {
             <div className="add-icon" onClick={() => setModal("addCommitment")}>
               <AiOutlinePlus size={30} color="white" />
             </div>
-            {commitments.map((c) => {
-              return <CommitmentItem commitment={c} key={c._id} />;
-            })}
+            {menu === "current"
+              ? currentCommitments.map((c) => {
+                  return <CommitmentItem commitment={c} key={c._id} />;
+                })
+              : completedCommitments.map((c) => {
+                  return <CommitmentItem commitment={c} key={c._id} />;
+                })}
           </>
         )}
       </section>

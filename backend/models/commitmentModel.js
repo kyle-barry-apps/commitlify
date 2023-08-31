@@ -17,7 +17,7 @@ const commitmentSchema = mongoose.Schema(
       numberOfDays: Number,
       daysOfWeek: [String],
     },
-    success: Boolean,
+    isCompleted: Boolean,
     progressPercentage: Number,
     moneyCommitted: Number,
     timeCommitted: Number,

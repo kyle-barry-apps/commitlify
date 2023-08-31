@@ -27,8 +27,6 @@ const AddCommitment = () => {
   const dispatch = useDispatch();
   const modal_ref = useRef();
 
-  console.log(timeCommitted);
-
   const handleSubmit = (e) => {
     e.preventDefault();
 

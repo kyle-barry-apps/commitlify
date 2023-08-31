@@ -4,6 +4,7 @@ import { CircularProgressbar, buildStyles } from "react-circular-progressbar";
 import { ModalContext } from "../../contexts/modalContext";
 import { CommitmentContext } from "../../contexts/commitmentContext";
 import { updateCommitment } from "../../features/commitment/commitmentSlice";
+import { AiOutlineCheck } from "react-icons/ai";
 import "react-circular-progressbar/dist/styles.css";
 import "./commitmentItem.css";
 
@@ -65,10 +66,11 @@ const CommitmentItem = ({ commitment }) => {
       }}
     >
       <h1 className="commitment-title">{commitment.name}</h1>
-      <h3 className="commitment-statement">{commitmentStatement()}</h3>
-      <div className="daily-completion" onClick={toggleCompletion}></div>
+      <div className="daily-completion" onClick={toggleCompletion}>
+        <AiOutlineCheck size={60} style={{ color: "#c0262c" }} />
+      </div>
 
-      <div className="progress-container">
+      {/* <div className="progress-container">
         <CircularProgressbar
           value={percentage}
           text={`${percentage}%`}
@@ -81,7 +83,8 @@ const CommitmentItem = ({ commitment }) => {
             strokeLinecap: "butt",
           })}
         />
-      </div>
+      </div> */}
+      <div className="commitment-statement">{commitmentStatement()}</div>
       <div className="pledges-container">
         <div className="commitment-pledge">
           Pledge Amount: ${commitment.moneyCommitted}

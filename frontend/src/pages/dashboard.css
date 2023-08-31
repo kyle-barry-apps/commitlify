@@ -13,7 +13,7 @@
 .dashboard-welcome {
   text-align: left;
   font-weight: 400;
-  margin-bottom: 4rem;
+  margin-bottom: 2rem;
   letter-spacing: 1px;
   font-size: 1.4rem;
 }
@@ -51,4 +51,37 @@
   opacity: 0.8;
   transform: scale(1.01);
   transform: translateY(-1px);
+}
+
+.commitment-menu {
+  display: flex;
+  justify-content: space-evenly;
+  margin-bottom: 2rem;
+}
+
+.commitment-menu div {
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  cursor: pointer;
+  overflow: hidden;
+}
+
+.commitment-menu div:hover::after {
+  transform: translateX(0);
+}
+
+.current-commitments::after,
+.completed-commitments::after {
+  content: "";
+  margin-top: 4px;
+  display: block;
+  height: 3px;
+  width: 100%;
+  background-color: var(--coral-500);
+  transform: translateX(-101%);
+  transition: 0.15s;
+}
+
+.commitment-menu div.active::after {
+  transform: translateX(0);
 }
