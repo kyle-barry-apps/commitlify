@@ -76,7 +76,11 @@ const Dashboard = () => {
       )}
       <section
         className={
-          commitments.length > 0
+          commitments.length === 0
+            ? "dashboard-container"
+            : currentCommitments.length > 0 && menu === "current"
+            ? "dashboard-container active"
+            : menu === "completed" && completedCommitments > 0
             ? "dashboard-container active"
             : "dashboard-container"
         }
@@ -96,13 +100,19 @@ const Dashboard = () => {
             <div className="add-icon" onClick={() => setModal("addCommitment")}>
               <AiOutlinePlus size={30} color="white" />
             </div>
-            {menu === "current"
-              ? currentCommitments.map((c) => {
-                  return <CommitmentItem commitment={c} key={c._id} />;
-                })
-              : completedCommitments.map((c) => {
-                  return <CommitmentItem commitment={c} key={c._id} />;
-                })}
+            {menu === "current" ? (
+              currentCommitments.map((c) => {
+                return <CommitmentItem commitment={c} key={c._id} />;
+              })
+            ) : menu === "completed" && completedCommitments.length > 0 ? (
+              completedCommitments.map((c) => {
+                return <CommitmentItem commitment={c} key={c._id} />;
+              })
+            ) : (
+              <div className="empty-dashboard">
+                <h3>You haven't completed any commitments yet</h3>
+              </div>
+            )}
           </>
         )}
       </section>
