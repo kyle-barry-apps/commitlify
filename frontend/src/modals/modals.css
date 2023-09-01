@@ -16,6 +16,10 @@
   max-width: 30rem;
 }
 
+.modal-container h4 {
+  font-weight: 500;
+}
+
 .modal-overlay {
   position: absolute;
   width: 100%;
@@ -108,7 +112,6 @@
 }
 
 .view-commitment-description {
-  margin-top: 1rem;
   line-height: 1.8;
 }
 
@@ -168,4 +171,39 @@
 .day.active {
   background-color: var(--coral-300);
   color: white;
+}
+
+.day-of-week-container {
+  display: flex;
+  justify-content: space-evenly;
+}
+
+.timeframe {
+  text-transform: capitalize;
+}
+
+.description-container {
+  border: 1px solid var(--coral-300);
+  padding: 1rem;
+  border-radius: 5px;
+}
+
+.pledge-container {
+  align-self: center;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.view-pledge-amount {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 2rem;
+  color: var(--coral-300);
+  font-weight: 600;
+  padding: 2rem;
+  border-radius: 5px;
+  background: linear-gradient(0.45turn, var(--coral-50), var(--coral-100));
 }

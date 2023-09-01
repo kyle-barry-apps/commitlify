@@ -89,6 +89,7 @@ const AddCommitment = () => {
             id="name"
             value={name}
             placeholder="e.g. Meditate"
+            required
             onChange={(e) => setName(e.target.value)}
           />
         </div>
@@ -100,6 +101,7 @@ const AddCommitment = () => {
             name="description"
             id="description"
             value={description}
+            required
             onChange={(e) => setDescription(e.target.value)}
           />
         </div>

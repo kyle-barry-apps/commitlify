@@ -6,6 +6,7 @@ import { register, reset } from "../features/user/userSlice";
 import Spinner from "../components/Spinner";
 
 const Register = () => {
+  const [err, setErr] = useState("");
   const [formData, setFormData] = useState({
     name: "",
     email: "",
@@ -43,8 +44,39 @@ const Register = () => {
     }));
   };
 
+  const validatePassword = (password) => {
+    if (password.length < 8) {
+      return "Password must be at least 8 characters long";
+    }
+
+    // Check if the password contains at least one uppercase letter
+    if (!/[A-Z]/.test(password)) {
+      return "Password must contain at least one uppercase letter";
+    }
+
+    // Check if the password contains at least one lowercase letter
+    if (!/[a-z]/.test(password)) {
+      return "Password must contain at least one lowercase letter";
+    }
+
+    // Check if the password contains at least one digit
+    if (!/\d/.test(password)) {
+      return "Password must contain at least one digit";
+    }
+
+    // Password is valid
+    return true;
+  };
+
   const handleSubmit = (e) => {
     e.preventDefault();
+
+    if (validatePassword(password) !== true) {
+      toast.error(
+        "Password must be at least 8 characters long and contain at least one uppercase letter, lowercase letter, and one digit"
+      );
+      return;
+    }
 
     if (password !== password2) {
       toast.error("Passwords do not match");

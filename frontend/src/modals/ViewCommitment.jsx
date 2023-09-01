@@ -53,19 +53,40 @@ const ViewCommitment = () => {
           </div>
         )}
       </div>
-
-      <h4>Description</h4>
-      <p className="view-commitment-description">
-        {activeCommitment.description}
-      </p>
+      {activeCommitment.description && (
+        <>
+          <h4>Description</h4>
+          <div className="description-container">
+            <p className="view-commitment-description">
+              {activeCommitment.description}
+            </p>
+          </div>
+        </>
+      )}
       <h4>Commitment Type</h4>
-      <span>{activeCommitment.commitmentType.timeframe}</span>
-      <span>
-        {activeCommitment.commitmentType.daysOfWeek &&
-          activeCommitment.commitmentType.daysOfWeek}
-      </span>
-      <span>{activeCommitment.commitmentType.numberOfDays}</span>
-      <span>Pledge Amount: ${activeCommitment.moneyCommitted}</span>
+      <div className="timeframe">
+        {activeCommitment.commitmentType.timeframe === "weekly"
+          ? `${activeCommitment.commitmentType.timeframe} - ${activeCommitment.commitmentType.numberOfDays} days per week`
+          : activeCommitment.commitmentType.timeframe === "monthly"
+          ? `${activeCommitment.commitmentType.timeframe} - ${activeCommitment.commitmentType.numberOfDays} days per month`
+          : activeCommitment.commitmentType.timeframe === "one-time"
+          ? `One time commitment`
+          : null}
+      </div>
+      {activeCommitment.commitmentType.timeframe === "daily" && (
+        <div className="day-of-week-container">
+          {activeCommitment.commitmentType.daysOfWeek.map((d) => (
+            <div className="commitment-type day active">{d}</div>
+          ))}
+        </div>
+      )}
+
+      <span></span>
+      <div className="pledge-container">
+        <div className="view-pledge-amount">
+          ${activeCommitment.moneyCommitted}
+        </div>
+      </div>
     </div>
   );
 };
