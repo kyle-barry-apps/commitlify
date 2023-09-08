@@ -1,4 +1,5 @@
 .dashboard-container {
+  margin-top: 3rem;
   min-height: 25rem;
   display: grid;
   gap: 3rem;

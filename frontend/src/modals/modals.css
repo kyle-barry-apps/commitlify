@@ -61,7 +61,6 @@
 .commitment-type-container {
   display: flex;
   align-items: center;
-  justify-content: space-around;
   gap: 1rem;
 }
 
@@ -206,4 +205,17 @@
   padding: 2rem;
   border-radius: 5px;
   background: linear-gradient(0.45turn, var(--coral-50), var(--coral-100));
+}
+
+.frequency-container {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.frequency-input {
+  max-width: 5rem;
+}
+.frequency-label {
+  flex: 1;
 }

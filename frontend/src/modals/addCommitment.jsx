@@ -10,8 +10,8 @@ const AddCommitment = () => {
   const [name, setName] = useState("");
   const [description, setDescription] = useState("");
   const [pledgeAmount, setPledgeAmount] = useState(20);
-  const [commitmentType, setCommitmentType] = useState("one-time");
-  const [timeCommitted, setTimeCommitted] = useState(3);
+  const [commitmentType, setCommitmentType] = useState("daily");
+  const [timeCommitted, setTimeCommitted] = useState(1);
   const [daysOfWeek, setDaysOfWeek] = useState([
     "Sunday",
     "Monday",
@@ -30,10 +30,7 @@ const AddCommitment = () => {
   const handleSubmit = (e) => {
     e.preventDefault();
 
-    const time =
-      commitmentType === "daily" || commitmentType === "one-time"
-        ? null
-        : timeCommitted;
+    const time = commitmentType === "daily" ? null : timeCommitted;
 
     const days = commitmentType === "daily" ? daysOfWeek : null;
 
@@ -102,11 +99,12 @@ const AddCommitment = () => {
             id="description"
             value={description}
             required
+            maxLength={250}
             onChange={(e) => setDescription(e.target.value)}
           />
         </div>
         <div className="modal-group">
-          <label htmlFor="pledge-amount">Pledge Amount (USD $)</label>
+          <label htmlFor="pledge-amount">Pledge ($ USD)</label>
           <input
             type="number"
             className="form-control pledge-amount"
@@ -117,18 +115,8 @@ const AddCommitment = () => {
             max={10000}
           />
         </div>
-        <label htmlFor="commitment-type">Commitment Type</label>
+        <label htmlFor="commitment-type">Frequency</label>
         <div className="commitment-type-container">
-          <div
-            className={
-              commitmentType === "one-time"
-                ? "commitment-type active"
-                : "commitment-type"
-            }
-            onClick={() => setCommitmentType("one-time")}
-          >
-            One Time
-          </div>
           <div
             className={
               commitmentType === "daily"
@@ -148,16 +136,6 @@ const AddCommitment = () => {
             onClick={() => setCommitmentType("weekly")}
           >
             Weekly
-          </div>
-          <div
-            className={
-              commitmentType === "monthly"
-                ? "commitment-type active"
-                : "commitment-type"
-            }
-            onClick={() => setCommitmentType("monthly")}
-          >
-            Monthly
           </div>
         </div>
         <div className="modal-group">
@@ -234,36 +212,25 @@ const AddCommitment = () => {
                 Saturday
               </div>
             </div>
-          ) : commitmentType === "weekly" ? (
-            <label htmlFor="time-pledge">Days per week</label>
-          ) : commitmentType === "monthly" ? (
-            <label htmlFor="time-pledge">Days per month</label>
-          ) : null}
-          {commitmentType === "weekly" && (
-            <input
-              type="number"
-              name="time-pledge"
-              className="form-control pledge-amount"
-              defaultValue={3}
-              onChange={(e) => setTimeCommitted(e.target.value)}
-              min={1}
-              max={7}
-            />
-          )}
-          {commitmentType === "monthly" && (
-            <input
-              type="number"
-              name="time-pledge"
-              className="form-control pledge-amount"
-              defaultValue={3}
-              onChange={(e) => setTimeCommitted(e.target.value)}
-              min={1}
-              max={31}
-            />
+          ) : (
+            <div className="frequency-container">
+              <input
+                type="number"
+                className="form-control frequency-input"
+                name="frequency"
+                defaultValue={1}
+                onChange={(e) => setTimeCommitted(e.target.value)}
+                min={1}
+                max={6}
+              />
+              <label htmlFor="frequency" className="frequency-label">
+                days per week
+              </label>
+            </div>
           )}
         </div>
         <button className="btn btn-create" type="submit">
-          Create commitment
+          Make commitment
         </button>
       </form>
     </div>
