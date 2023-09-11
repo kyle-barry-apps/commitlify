@@ -13,6 +13,12 @@
   z-index: 0;
 }
 
+.commitment.complete {
+  background-color: var(--coral-500);
+  color: white;
+  box-shadow: rgba(192, 38, 44, 1) 0px 5px 15px;
+}
+
 .commitment:hover {
   transform: scale(1.01);
   transform: translateY(-5px);
@@ -40,6 +46,15 @@
   display: flex;
   align-items: center;
   justify-content: center;
+  background: linear-gradient(
+    0deg,
+    #fb876b 0%,
+    #fb876b calc(var(--percentageComplete) * 100%),
+    transparent calc(var(--percentageComplete) * 100%),
+    transparent 100%
+  );
+
+  transition: background 0.5s ease;
 }
 
 .daily-completion:hover {

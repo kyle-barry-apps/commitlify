@@ -1,4 +1,4 @@
-import { useContext } from "react";
+import { useContext, useEffect, useState } from "react";
 import { useDispatch } from "react-redux";
 import { CircularProgressbar, buildStyles } from "react-circular-progressbar";
 import { ModalContext } from "../../contexts/modalContext";
@@ -11,19 +11,70 @@ import "./commitmentItem.css";
 const CommitmentItem = ({ commitment }) => {
   const { setModal } = useContext(ModalContext);
   const { setActiveCommitment } = useContext(CommitmentContext);
+  const [streak, setStreak] = useState();
+  const [percentageComplete, setPercentageComplete] = useState(0);
   const dispatch = useDispatch();
 
-  const percentage = 66;
+  console.log(percentageComplete);
+
+  useEffect(() => {
+    function getCurrentWeekDays() {
+      const today = new Date();
+      const currentDay = today.getDay(); // 0 (Sunday) to 6 (Saturday)
+      const startDate = new Date(today);
+      startDate.setDate(today.getDate() - currentDay); // Start from Sunday
+      const days = [];
+
+      for (let i = 0; i < 7; i++) {
+        const currentDate = new Date(startDate);
+        currentDate.setDate(startDate.getDate() + i);
+        days.push(currentDate.toDateString());
+      }
+
+      return days;
+    }
+
+    const convertedDates = {
+      0: "Sunday",
+      1: "Monday",
+      2: "Tuesday",
+      3: "Wednesday",
+      4: "Thursday",
+      5: "Friday",
+      6: "Saturday",
+    };
+
+    const today = new Date().toDateString();
+    const todayDay = new Date().getDay();
+
+    if (
+      commitment.commitmentType.timeframe === "daily" &&
+      commitment.commitmentType.daysOfWeek.includes(convertedDates[todayDay]) &&
+      commitment.completionDates.includes(today)
+    ) {
+      setPercentageComplete(100);
+    } else if (commitment.commitmentType.timeframe === "weekly") {
+      const currentWeekDays = getCurrentWeekDays();
+
+      const daysCompleted = currentWeekDays.reduce((acc, curr) => {
+        if (commitment.completionDates.includes(curr)) {
+          acc += 1;
+        }
+        return acc;
+      }, 0);
+
+      const percentage = daysCompleted / commitment.commitmentType.numberOfDays;
+      percentage >= 1
+        ? setPercentageComplete(1)
+        : setPercentageComplete(percentage);
+    }
+  }, [percentageComplete, commitment]);
 
   const commitmentStatement = () => {
     let statement = "";
 
-    if (commitment.commitmentType.timeframe === "one-time") {
-      statement = "One time commitment";
-    } else if (commitment.commitmentType.timeframe === "weekly") {
+    if (commitment.commitmentType.timeframe === "weekly") {
       statement = `${commitment.commitmentType.numberOfDays} days per week`;
-    } else if (commitment.commitmentType.timeframe === "monthly") {
-      statement = `${commitment.commitmentType.numberOfDays} days per month`;
     } else {
       statement = `Daily commitment`;
     }
@@ -31,7 +82,9 @@ const CommitmentItem = ({ commitment }) => {
     return statement;
   };
 
-  const toggleCompletion = () => {
+  const toggleCompletion = (event) => {
+    event.stopPropagation();
+
     const today = new Date().toDateString();
     let updatedCommitment = { ...commitment };
 
@@ -59,35 +112,26 @@ const CommitmentItem = ({ commitment }) => {
 
   return (
     <div
-      className="commitment"
+      className={
+        percentageComplete === 100 ? "commitment complete" : "commitment"
+      }
       onClick={() => {
         setActiveCommitment(commitment);
         setModal("viewCommitment");
       }}
     >
       <h1 className="commitment-title">{commitment.name}</h1>
-      <div className="daily-completion" onClick={toggleCompletion}>
+      <div
+        className="daily-completion"
+        style={{ "--percentageComplete": percentageComplete }}
+        onClick={toggleCompletion}
+      >
         <AiOutlineCheck size={60} style={{ color: "#c0262c" }} />
       </div>
-
-      {/* <div className="progress-container">
-        <CircularProgressbar
-          value={percentage}
-          text={`${percentage}%`}
-          styles={buildStyles({
-            pathColor: "#f9383b",
-            backgroundColor: "#c0262c",
-            textColor: "rgb(0,0,0)",
-            textSize: "20px",
-            trailColor: "#d6d6d6",
-            strokeLinecap: "butt",
-          })}
-        />
-      </div> */}
       <div className="commitment-statement">{commitmentStatement()}</div>
       <div className="pledges-container">
         <div className="commitment-pledge">
-          Pledge Amount: ${commitment.moneyCommitted}
+          Pledge: ${commitment.moneyCommitted}
         </div>
       </div>
     </div>
